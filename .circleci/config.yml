@@ -1,0 +1,60 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@1.5.0
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.10.5
+    steps:
+      - checkout:
+          path: ~/project
+        
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: build project
+          command: echo "Building project..."
+      - run:
+          name: Run tests
+          command: pytest || true
+  build: # Add the missing build job declaration
+    docker:
+      - image: cimg/python:3.10.5
+    steps:
+      - checkout
+      - run:
+          name: Build project
+          command: echo "Building project..."
+  black-check:
+    docker:
+      - image: pyfound/black:23.11.0
+    working_directory: ~/project1
+    steps:
+      - checkout
+      - run:
+          name: check current dir name  # Add a name to the step
+          command: echo ${CIRCLE_WORKING_DIRECTORY}
+      - run:
+          name: list content of current dir  # Add a name to the step
+          command: ls -la
+      - run:
+          name: Check code style
+          command: black --check .
+
+workflows:
+  sample:
+    jobs:
+      - build-and-test
+      - black-check:
+          requires:
+            - build-and-test
+      - build: # Add the build job to the workflow
+          filters:
+            branches:
+              only:
+                - main
+          context: pr-check
+       
