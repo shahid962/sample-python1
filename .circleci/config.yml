@@ -8,7 +8,9 @@ jobs:
     docker:
       - image: cimg/python:3.10.5
     steps:
-      - checkout
+      - checkout:
+          path: ~/project
+        
       - run:
           name: Install dependencies
           command: pip install -r requirements.txt
