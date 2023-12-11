@@ -15,7 +15,6 @@ jobs:
       - run:
           name: Run tests
           command: pytest || true
-r
   build: # Add the missing build job declaration
     docker:
       - image: cimg/python:3.10.5
