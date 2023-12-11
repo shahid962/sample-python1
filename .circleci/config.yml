@@ -15,6 +15,9 @@ jobs:
           name: Install dependencies
           command: pip install -r requirements.txt
       - run:
+          name: build project
+          command: echo "Building project..."
+      - run:
           name: Run tests
           command: pytest || true
   build: # Add the missing build job declaration
@@ -28,7 +31,7 @@ jobs:
   black-check:
     docker:
       - image: pyfound/black:23.11.0
-    working_directory: ~/project
+    working_directory: ~/project1
     steps:
       - checkout
       - run:
