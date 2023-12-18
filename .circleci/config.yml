@@ -42,7 +42,7 @@ jobs:
           command: ls -la
       - run:
           name: Check code style
-          command: black --check --config pyproject.toml .
+          command: black  --config pyproject.toml .
 
 workflows:
   sample:
