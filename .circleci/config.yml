@@ -1,7 +1,6 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@1.5.0
   black: iac/black@2.0.0
 
 jobs:
@@ -15,6 +14,7 @@ jobs:
       - run:
           name: Install dependencies
           command: pip install -r requirements.txt
+
       - run:
           name: build project
           command: echo "Building project..."
@@ -36,6 +36,9 @@ workflows:
     jobs:
       - build-and-test
       - black/check: # Add the black/check job to the workflow
+          path: ~/project
+
+
       - build: # Add the build job to the workflow
           filters:
             branches:
