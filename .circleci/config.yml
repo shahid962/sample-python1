@@ -33,8 +33,9 @@ workflows:
   sample:
     jobs:
       - build-and-test
-      - black/check: # Add the black/check job to the workflow
+      - black/format: # Add the black/check job to the workflow
           path: ~/project
+          verbose: true
 
 
       - build: # Add the build job to the workflow
