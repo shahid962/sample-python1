@@ -29,8 +29,6 @@ jobs:
       - run:
           name: Build project
           command: echo "Building project..."
-  
-
 workflows:
   sample:
     jobs:
