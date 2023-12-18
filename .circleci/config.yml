@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@1.5.0
+  black: iac/black@2.0.0
 
 jobs:
   build-and-test:
@@ -28,29 +29,13 @@ jobs:
       - run:
           name: Build project
           command: echo "Building project..."
-  black-check:
-    docker:
-      - image: pyfound/black:23.11.0
-    working_directory: ~/project1
-    steps:
-      - checkout
-      - run:
-          name: check current dir name  # Add a name to the step
-          command: echo ${CIRCLE_WORKING_DIRECTORY}
-      - run:
-          name: list content of current dir  # Add a name to the step
-          command: ls -la
-      - run:
-          name: Check code style
-          command: black  --config pyproject.toml .
+  
 
 workflows:
   sample:
     jobs:
       - build-and-test
-      - black-check:
-          requires:
-            - build-and-test
+      - black/check: # Add the black/check job to the workflow
       - build: # Add the build job to the workflow
           filters:
             branches:
