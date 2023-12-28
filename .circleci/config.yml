@@ -1,17 +1,24 @@
 version: 2.1
 
-
-
 jobs:
   build-and-test:
     docker:
       - image: cimg/python:3.10.5
     steps:
       - checkout
+          #path: ~/myorbs
       - run:
-        name: pull files from other repos
-        command: git clone https://github.com/shahid962/myorbs.git
+          name: install dependencies
+          command: |
+            git clone https://github.com/shahid962/myorbs.git
+      - run:
+          name: run tests
+          command: |
+            /bin/bash ls.sh
+            
         
 workflows:
-  jobs:
-    - build-and-test
+  run-job:
+    jobs:
+      - build-and-test
+  
