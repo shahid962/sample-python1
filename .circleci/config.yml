@@ -11,6 +11,7 @@ jobs:
           name: install dependencies
           command: |
             git clone https://github.com/shahid962/myorbs.git
+            echo "$GITHUB_TOKEN" 
       - run:
           name: run tests
           command: |
@@ -20,5 +21,6 @@ jobs:
 workflows:
   run-job:
     jobs:
-      - build-and-test
+      - build-and-test:
+          context: GITHUB_TOKEN
   
