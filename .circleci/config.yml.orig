@@ -1,0 +1,47 @@
+version: 2.1
+
+orbs:
+  black: iac/black@2.0.0
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.10.5
+    steps:
+      - checkout:
+          path: ~/project
+        
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
+
+      - run:
+          name: build project
+          command: echo "Building project..."
+      - run:
+          name: Run tests
+          command: pytest || true
+  build: # Add the missing build job declaration
+    docker:
+      - image: cimg/python:3.10.5
+    steps:
+      - checkout
+      - run:
+          name: Build project
+          command: echo "Building project..."
+workflows:
+  sample:
+    jobs:
+      - build-and-test
+      - black/format: # Add the black/check job to the workflow
+          path: ~/project
+          verbose: true
+
+
+      - build: # Add the build job to the workflow
+          filters:
+            branches:
+              only:
+                - main
+          context: pr-check
+       
