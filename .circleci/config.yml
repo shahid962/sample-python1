@@ -11,7 +11,9 @@ jobs:
           name: install dependencies
           command: |
             git clone https://github.com/shahid962/myorbs.git
-            echo "${v1}" 
+      - run:
+          name: run tests
+          command: echo $v1 
       - run:
           name: run tests
           command: |
