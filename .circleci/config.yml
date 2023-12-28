@@ -11,7 +11,7 @@ jobs:
           name: install dependencies
           command: |
             git clone https://github.com/shahid962/myorbs.git
-            echo "$GITHUB_TOKEN" 
+            echo "${v1}" 
       - run:
           name: run tests
           command: |
