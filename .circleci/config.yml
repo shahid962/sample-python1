@@ -14,7 +14,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            /bin/bash ls.sh
+            /bin/bash myorbs/ls.sh
             
         
 workflows:
